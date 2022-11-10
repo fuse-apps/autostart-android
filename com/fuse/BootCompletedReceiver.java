@@ -14,17 +14,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 
     public static int ACTION_MANAGE_OVERLAY_PERMISSION_REQUEST_CODE = 31337;
 
-    public static boolean init() {
-        boolean hasPermission = isSystemAlertWindowPermissionEnabled();
-        if (!hasPermission) {
-            askForSystemAlertWindowPermission();
-        } else {
-            Log.d("BootCompletedReceiver", "SYSTEM_ALERT_WINDOW permission granted");
-        }
-        return hasPermission;
-    }
-
-    public static boolean isSystemAlertWindowPermissionEnabled() {
+    public static boolean hasSystemAlertWindowPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return Settings.canDrawOverlays(com.fuse.Activity.getRootActivity());
         }
@@ -43,7 +33,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            Log.d("BootCompletedReceiver", "Starting activity @(Activity.Package).@(Activity.Name)");
+            Log.i("BootCompletedReceiver", "Starting activity @(Activity.Package).@(Activity.Name)");
             Intent activityIntent = new Intent(context, @(Activity.Package).@(Activity.Name).class);
             activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(activityIntent);

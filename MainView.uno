@@ -9,21 +9,35 @@ partial class MainView
         InitializeUX();
 
         if defined(ANDROID)
+            IntializeAutoStart();
+    }
+
+    extern(ANDROID) bool IntializeAutoStart()
+    {
+        if (!HasSystemAlertWindowPermissionJava())
         {
-            if (InitBootCompletedReceiver())
-                RequestPermissions();
+            AskForSystemAlertWindowPermissionJava();
+            return false;
         }
+
+        RequestAutoStartPermissions();
+        return true;
     }
 
     [Foreign(Language.Java)]
-    extern(ANDROID) bool InitBootCompletedReceiver()
+    extern(ANDROID) bool HasSystemAlertWindowPermissionJava()
     @{
-        return com.fuse.BootCompletedReceiver.init();
+        return com.fuse.BootCompletedReceiver.hasSystemAlertWindowPermission();
     @}
 
-    extern(ANDROID) void RequestPermissions()
+    [Foreign(Language.Java)]
+    extern(ANDROID) void AskForSystemAlertWindowPermissionJava()
+    @{
+        com.fuse.BootCompletedReceiver.askForSystemAlertWindowPermission();
+    @}
+
+    extern(ANDROID) void RequestAutoStartPermissions()
     {
-        debug_log "Requesting permissions";
         Permissions
             .Request(new[] {
                 Permissions.Android.RECEIVE_BOOT_COMPLETED,
