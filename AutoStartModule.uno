@@ -1,6 +1,5 @@
 using Fuse;
 using Fuse.Scripting;
-using Fuse.Android.Permissions;
 using Uno;
 using Uno.UX;
 using Uno.Compiler.ExportTargetInterop;
