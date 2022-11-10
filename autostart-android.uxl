@@ -1,0 +1,21 @@
+<Extensions Backend="CPlusPlus" Condition="ANDROID">
+
+    <ProcessFile JavaFile="com/fuse/BootCompletedReceiver.java" />
+
+    <Require AndroidManifest.Permission="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <Require AndroidManifest.Permission="android.permission.SYSTEM_ALARM_WINDOW" />
+
+    <Require AndroidManifest.ApplicationElement>
+        <![CDATA[
+        <receiver
+            android:name="com.fuse.BootCompletedReceiver"
+            android:label="BootCompletedReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        ]]>
+    </Require>
+
+</Extensions>
