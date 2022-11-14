@@ -1,0 +1,11 @@
+{
+  "name": "autostart-android",
+  "private": true,
+  "devDependencies": {
+    "fuse-sdk": "^2.5.0"
+  },
+  "scripts": {
+    "android": "uno build android --run",
+    "clean": "uno clean"
+  }
+}
