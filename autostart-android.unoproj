@@ -1,8 +1,7 @@
 {
   "Packages": [
     "Fuse",
-    "FuseJS",
-    "Fuse.Android.Permissions"
+    "FuseJS"
   ],
   "Includes": [
     "*"

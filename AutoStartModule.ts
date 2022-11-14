@@ -1,8 +1,9 @@
 /** Native AutoStart module - implemented by AutoStartModule.uno */
 declare module "FuseJS/AutoStart" {
-    function hasSystemAlertWindowPermission(): boolean
 
-    function askForSystemAlertWindowPermission(): void
+    /** Returns whether required permissions are granted */
+    function hasPermission(): boolean
 
-    function requestAutoStartPermissions(): void
+    /** Opens system settings to edit permissions */
+    function askForPermission(): void
 }

@@ -17,23 +17,16 @@ class AutoStartModule : NativeModule
         _inited = true;
         Resource.SetGlobalKey(this, "FuseJS/AutoStart");
 
-        AddMember(new NativeFunction("hasSystemAlertWindowPermission", (context, args) => {
+        AddMember(new NativeFunction("hasPermission", (context, args) => {
             if defined(ANDROID)
                 return HasSystemAlertWindowPermissionJava();
 
             return false;
         }));
 
-        AddMember(new NativeFunction("askForSystemAlertWindowPermission", (context, args) => {
+        AddMember(new NativeFunction("askForPermission", (context, args) => {
             if defined(ANDROID)
                 AskForSystemAlertWindowPermissionJava();
-            
-            return null;
-        }));
-
-        AddMember(new NativeFunction("requestAutoStartPermissions", (context, args) => {
-            if defined(ANDROID)
-                RequestAutoStartPermissions();
             
             return null;
         }));
@@ -50,17 +43,4 @@ class AutoStartModule : NativeModule
     @{
         com.fuse.BootCompletedReceiver.askForSystemAlertWindowPermission();
     @}
-
-    extern(ANDROID) void RequestAutoStartPermissions()
-    {
-        Permissions
-            .Request(new[] {
-                Permissions.Android.RECEIVE_BOOT_COMPLETED,
-                Permissions.Android.SYSTEM_ALERT_WINDOW
-            })
-            .Then(
-                permissions => { debug_log "Permissions granted"; },
-                error => { debug_log "Permissions error: " + error.Message; }
-            );
-    }
 }

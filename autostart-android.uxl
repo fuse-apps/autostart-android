@@ -3,7 +3,7 @@
     <ProcessFile JavaFile="com/fuse/BootCompletedReceiver.java" />
 
     <Require AndroidManifest.Permission="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <Require AndroidManifest.Permission="android.permission.SYSTEM_ALARM_WINDOW" />
+    <Require AndroidManifest.Permission="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <Require AndroidManifest.ApplicationElement>
         <![CDATA[

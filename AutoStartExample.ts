@@ -7,16 +7,16 @@ export default class AutoStartExample {
     constructor() {
         this.refresh()
 
-        // Refresh variables when returning from Android settings
+        // Refresh variables when returning from system settings
         Lifecycle.on("enteringInteractive", () => this.refresh())
     }
 
     openSettings() {
-        AutoStart.askForSystemAlertWindowPermission()
+        AutoStart.askForPermission()
     }
 
     refresh() {
-        this.hasPermission = AutoStart.hasSystemAlertWindowPermission()
-        console.log("hasSystemAlertWindowPermission", this.hasPermission)
+        this.hasPermission = AutoStart.hasPermission()
+        console.log("hasPermission", this.hasPermission)
     }
 }
