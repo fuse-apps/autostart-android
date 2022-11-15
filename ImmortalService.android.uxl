@@ -1,0 +1,53 @@
+<Extensions Backend="CPlusPlus" Condition="ANDROID">
+
+    <ProcessFile JavaFile="com/fuse/immortal/AlarmReceiver.java" />
+    <ProcessFile JavaFile="com/fuse/immortal/BaseActivity.java" />
+    <ProcessFile JavaFile="com/fuse/immortal/RealService.java" />
+    <ProcessFile JavaFile="com/fuse/immortal/RebootReceiver.java" />
+    <ProcessFile JavaFile="com/fuse/immortal/RestartService.java" />
+
+    <Set Activity.BaseClass="com.fuse.immortal.BaseActivity" />
+
+    <Require AndroidManifest.Permission="android.permission.FOREGROUND_SERVICE" />
+    <Require AndroidManifest.Permission="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <Require AndroidManifest.Permission="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+
+    <Require AndroidManifest.ApplicationElement>
+        <![CDATA[
+        <service
+            android:name="com.fuse.immortal.RealService"
+            android:enabled="true"
+            android:exported="true" />
+        ]]>
+    </Require>
+
+    <Require AndroidManifest.ApplicationElement>
+        <![CDATA[
+        <service
+            android:name="com.fuse.immortal.RestartService"
+            android:enabled="true"
+            android:exported="true" />
+        ]]>
+    </Require>
+
+    <Require AndroidManifest.ApplicationElement>
+        <![CDATA[
+        <receiver android:name="com.fuse.immortal.AlarmReceiver"/>
+        ]]>
+    </Require>
+
+    <Require AndroidManifest.ApplicationElement>
+        <![CDATA[
+        <receiver
+            android:name="com.fuse.immortal.RebootReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        ]]>
+    </Require>
+
+</Extensions>
