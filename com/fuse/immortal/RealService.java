@@ -1,5 +1,6 @@
 package com.fuse.immortal;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.app.Notification;
@@ -9,6 +10,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +37,14 @@ public class RealService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d("immortal", "RealService.onStartCommand");
+
+        if (ContextCompat.checkSelfPermission(
+                com.fuse.Activity.getRootActivity(), Manifest.permission.FOREGROUND_SERVICE) ==
+                PackageManager.PERMISSION_GRANTED) {
+            Log.d("immortal", "Permission FOREGROUND_SERVICE granted");
+        } else {
+            Log.d("immortal", "Permission FOREGROUND_SERVICE NOT granted");
+        }
 
         serviceIntent = intent;
         showToast(getApplication(), "Start Service");
