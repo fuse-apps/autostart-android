@@ -9,6 +9,19 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.app.AlarmManager;
+import android.app.Application;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class BaseActivity extends AppCompatActivity {
     private Intent serviceIntent;
 
@@ -46,10 +59,24 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         Log.d("immortal", "BaseActivity.onDestroy");
         super.onDestroy();
+        setAlarmTimer();
 
         if (serviceIntent != null) {
             stopService(serviceIntent);
             serviceIntent = null;
         }
+    }
+
+    protected void setAlarmTimer() {
+        Log.d("immortal", "RealService.setAlarmTimer");
+
+        final Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        c.add(Calendar.SECOND, 1);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        mAlarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
     }
 }

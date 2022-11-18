@@ -60,7 +60,7 @@ public class RealService extends Service {
                         Thread.sleep(1000 * 10 * 1); // 1 minute
                         Date date = new Date();
                         //showToast(getApplication(), sdf.format(date));
-                        sendNotification(sdf.format(date));
+                        //sendNotification(sdf.format(date));
                     } catch (InterruptedException e) {
                         run = false;
                         e.printStackTrace();
@@ -70,7 +70,17 @@ public class RealService extends Service {
         });
         mainThread.start();
 
+        //setAlarmTimer();
+
         return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        Log.d("immortal", "RealService.onTaskRemoved");
+        Log.i("immortal", "Restarting activity @(Activity.Package).@(Activity.Name)");
+        // TODO Send system command
+        setAlarmTimer();
     }
 
     @Override
@@ -117,11 +127,13 @@ public class RealService extends Service {
     }
 
     protected void setAlarmTimer() {
+        Log.d("immortal", "RealService.setAlarmTimer");
+
         final Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
         c.add(Calendar.SECOND, 1);
         Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent sender = PendingIntent.getBroadcast(this, 0,intent,0);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         mAlarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);

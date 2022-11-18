@@ -1,5 +1,7 @@
 <Extensions Backend="CPlusPlus" Condition="ANDROID">
 
+    <Require Gradle.Dependency.Implementation="androidx.work:work-runtime-ktx:2.7.0" />
+
     <ProcessFile JavaFile="com/fuse/immortal/AlarmReceiver.java" />
     <ProcessFile JavaFile="com/fuse/immortal/BaseActivity.java" />
     <ProcessFile JavaFile="com/fuse/immortal/RealService.java" />
@@ -17,7 +19,8 @@
         <service
             android:name="com.fuse.immortal.RealService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+             />
         ]]>
     </Require>
 
@@ -32,7 +35,10 @@
 
     <Require AndroidManifest.ApplicationElement>
         <![CDATA[
-        <receiver android:name="com.fuse.immortal.AlarmReceiver"/>
+        <receiver
+            android:name="com.fuse.immortal.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
         ]]>
     </Require>
 
