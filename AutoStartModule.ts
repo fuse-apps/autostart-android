@@ -6,4 +6,7 @@ declare module "FuseJS/AutoStart" {
 
     /** Opens system settings to edit permissions */
     function askForPermission(): void
+
+    /** Restarts app again automatically when destroyed */
+    function restartOnDestroy(enabled?: boolean): boolean
 }
