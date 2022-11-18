@@ -1,20 +1,36 @@
 <Extensions Backend="CPlusPlus" Condition="ANDROID">
 
-    <ProcessFile JavaFile="com/fuse/BootCompletedReceiver.java" />
+    <Set Activity.BaseClass="com.fuse.immortal.ImmortalActivity" />
 
+    <ProcessFile JavaFile="com/fuse/immortal/AlarmReceiver.java" />
+    <ProcessFile JavaFile="com/fuse/immortal/BootCompletedReceiver.java" />
+    <ProcessFile JavaFile="com/fuse/immortal/ImmortalActivity.java" />
+
+    <Require AndroidManifest.Permission="android.permission.FOREGROUND_SERVICE" />
     <Require AndroidManifest.Permission="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <Require AndroidManifest.Permission="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
     <Require AndroidManifest.Permission="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <Require AndroidManifest.ApplicationElement>
         <![CDATA[
         <receiver
-            android:name="com.fuse.BootCompletedReceiver"
-            android:label="BootCompletedReceiver"
+            android:name="com.fuse.immortal.BootCompletedReceiver"
+            android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        ]]>
+    </Require>
+
+    <Require AndroidManifest.ApplicationElement>
+        <![CDATA[
+        <receiver
+            android:name="com.fuse.immortal.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"
+        />
         ]]>
     </Require>
 

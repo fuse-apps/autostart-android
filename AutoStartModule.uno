@@ -30,17 +30,44 @@ class AutoStartModule : NativeModule
             
             return null;
         }));
+
+        AddMember(new NativeFunction("restartOnDestroy", (context, args) => {
+            if defined(ANDROID)
+            {
+                if (args.Length != 0)
+                {
+                    try { EnableRestartOnDestroyJava((bool) args[0]); }
+                    catch (Exception e) { debug_log e.ToString(); }
+                }
+
+                return IsRestartOnDestroyEnabledJava();
+            }
+
+            return null;
+        }));
     }
 
     [Foreign(Language.Java)]
     extern(ANDROID) bool HasSystemAlertWindowPermissionJava()
     @{
-        return com.fuse.BootCompletedReceiver.hasSystemAlertWindowPermission();
+        return com.fuse.immortal.BootCompletedReceiver.hasSystemAlertWindowPermission();
     @}
 
     [Foreign(Language.Java)]
     extern(ANDROID) void AskForSystemAlertWindowPermissionJava()
     @{
-        com.fuse.BootCompletedReceiver.askForSystemAlertWindowPermission();
+        com.fuse.immortal.BootCompletedReceiver.askForSystemAlertWindowPermission();
+    @}
+
+    [Foreign(Language.Java)]
+    extern(ANDROID) bool IsRestartOnDestroyEnabledJava()
+    @{
+        return com.fuse.immortal.ImmortalActivity.isRestartOnDestroyEnabled();
+    @}
+
+    [Foreign(Language.Java)]
+    extern(ANDROID) void EnableRestartOnDestroyJava(bool enabled)
+    @{
+        com.fuse.immortal.ImmortalActivity.enableRestartOnDestroy(enabled);
     @}
 }

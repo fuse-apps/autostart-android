@@ -1,4 +1,4 @@
-package com.fuse;
+package com.fuse.immortal;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -33,7 +33,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            Log.i("BootCompletedReceiver", "Starting activity @(Activity.Package).@(Activity.Name)");
+            Log.i("immortal", "Starting activity @(Activity.Package).@(Activity.Name) (via BootCompletedReceiver)");
             Intent activityIntent = new Intent(context, @(Activity.Package).@(Activity.Name).class);
             activityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(activityIntent);

@@ -18,5 +18,8 @@ export default class AutoStartExample {
     refresh() {
         this.hasPermission = AutoStart.hasPermission()
         console.log("hasPermission", this.hasPermission)
+
+        // Enable restart-on-destroy as long as the permission is granted
+        AutoStart.restartOnDestroy(this.hasPermission)
     }
 }
